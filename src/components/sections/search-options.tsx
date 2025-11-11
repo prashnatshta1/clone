@@ -38,8 +38,44 @@ const RadioOption: FC<RadioOptionProps> = ({
 
 const SearchOptions = () => {
   const [activeTab, setActiveTab] = useState("Courses");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [collegeFilter, setCollegeFilter] = useState("");
 
   const tabs = ["Courses", "Destinations", "Colleges/Campuses", "Resources"];
+
+  const destinations = [
+    { name: "Australia", image: "/images/countries/australia.jpg" },
+    { name: "Canada", image: "/images/countries/canada.jpg" },
+    { name: "Germany", image: "/images/countries/germany.jpg" },
+    { name: "Indonesia", image: "/images/countries/indonesia.jpg" },
+    { name: "Netherlands", image: "/images/countries/netherlands.jpg" },
+    { name: "New Zealand", image: "/images/countries/newzealand.jpg" },
+    { name: "Singapore", image: "/images/countries/singapore.jpg" },
+    { name: "Sri Lanka", image: "/images/countries/srilanka.jpg" },
+    { name: "UAE", image: "/images/countries/uae.jpg" },
+    { name: "UK", image: "/images/countries/uk.jpg" },
+    { name: "USA", image: "/images/countries/usa.jpg" },
+  ];
+
+  const colleges = [
+    { name: "ACAP University College - Adelaide", country: "Australia", city: "Adelaide" },
+    { name: "Birmingham City University International College", country: "United Kingdom", city: "Birmingham" },
+    { name: "Curtin College", country: "Australia", city: "Perth" },
+    { name: "Deakin College", country: "Australia", city: "Melbourne" },
+    { name: "Fraser International College", country: "Canada", city: "Vancouver" },
+  ];
+
+  const countries = ["Global", "Australia", "Canada", "Germany", "Indonesia", "Netherlands", "New Zealand", "Singapore", "Sri Lanka", "United Arab Emirates", "United Kingdom", "USA"];
+
+  const handleSearch = () => {
+    console.log("Searching for:", searchTerm);
+  };
+
+  const filteredColleges = colleges.filter(college => 
+    college.name.toLowerCase().includes(collegeFilter.toLowerCase()) ||
+    college.country.toLowerCase().includes(collegeFilter.toLowerCase())
+  );
 
   return (
     <section className="bg-white py-8 md:py-16">
@@ -88,9 +124,14 @@ const SearchOptions = () => {
                     <input
                       type="text"
                       placeholder="Search by subject name"
-                      className="w-full flex-grow rounded-[4px] border-input bg-white px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus:border-[#006B5C] focus:outline-none focus:ring-1 focus:ring-[#006B5C]"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full flex-grow rounded-[4px] border border-gray-300 bg-white px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus:border-[#006B5C] focus:outline-none focus:ring-1 focus:ring-[#006B5C]"
                     />
-                    <button className="shrink-0 rounded-[4px] bg-[#C4008C] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#a10070]">
+                    <button 
+                      onClick={handleSearch}
+                      className="shrink-0 rounded-[4px] bg-[#C4008C] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#a10070]"
+                    >
                       Search
                     </button>
                   </div>
@@ -115,19 +156,97 @@ const SearchOptions = () => {
                 </div>
               </div>
             )}
+
             {activeTab === "Destinations" && (
-              <div className="py-8 text-center text-muted-foreground">
-                Destinations content will be displayed here.
+              <div>
+                <h3 className="mb-6 text-2xl font-bold text-foreground">
+                  Global study destinations
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {destinations.map((destination) => (
+                    <div key={destination.name} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                      <img 
+                        src={destination.image} 
+                        alt={destination.name}
+                        className="w-full h-40 object-cover"
+                      />
+                      <div className="p-4">
+                        <h4 className="font-semibold text-lg text-center">{destination.name}</h4>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
+
             {activeTab === "Colleges/Campuses" && (
-              <div className="py-8 text-center text-muted-foreground">
-                Colleges/Campuses content will be displayed here.
+              <div>
+                <div className="mb-6">
+                  <h3 className="mb-4 text-2xl font-bold text-foreground">
+                    Find a College/Campus
+                  </h3>
+                  <input
+                    type="text"
+                    placeholder="Search by college name or country"
+                    value={collegeFilter}
+                    onChange={(e) => setCollegeFilter(e.target.value)}
+                    className="w-full max-w-md rounded-[4px] border border-gray-300 bg-white px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus:border-[#006B5C] focus:outline-none focus:ring-1 focus:ring-[#006B5C]"
+                  />
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="border-b border-gray-200">
+                        <th className="text-left py-3 px-4 font-semibold">College</th>
+                        <th className="text-left py-3 px-4 font-semibold">Country</th>
+                        <th className="text-left py-3 px-4 font-semibold">City</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredColleges.map((college, index) => (
+                        <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
+                          <td className="py-3 px-4">
+                            <a href="#" className="text-blue-600 hover:underline font-medium">
+                              {college.name}
+                            </a>
+                          </td>
+                          <td className="py-3 px-4">{college.country}</td>
+                          <td className="py-3 px-4">{college.city}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
+
             {activeTab === "Resources" && (
-              <div className="py-8 text-center text-muted-foreground">
-                Resources content will be displayed here.
+              <div>
+                <p className="mb-6 text-lg text-muted-foreground">
+                  Please select country, then select college name.
+                </p>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Country</label>
+                    <select 
+                      value={selectedCountry}
+                      onChange={(e) => setSelectedCountry(e.target.value)}
+                      className="w-full max-w-md rounded-[4px] border border-gray-300 bg-white px-4 py-3 text-base text-foreground focus:border-[#006B5C] focus:outline-none focus:ring-1 focus:ring-[#006B5C]"
+                    >
+                      <option value="">Select</option>
+                      {countries.map((country) => (
+                        <option key={country} value={country}>{country}</option>
+                      ))}
+                    </select>
+                  </div>
+                  {selectedCountry && (
+                    <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                      <p className="text-sm text-muted-foreground">
+                        Resources for {selectedCountry} will be displayed here.
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>

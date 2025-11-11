@@ -29,12 +29,14 @@ const PartnerCards = () => {
           {cardData.map((card) => (
             <div key={card.title} className="flex flex-col bg-secondary rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[1.02]">
               <div className="relative w-full aspect-[4/3]">
-                <Image
-                  src={card.imageSrc}
-                  alt={card.imageAlt}
-                  layout="fill"
-                  objectFit="cover"
-                />
+              <Image
+  src={card.imageSrc}
+  alt={card.imageAlt}
+  fill
+  style={{ objectFit: "cover" }}
+  sizes="(max-width: 768px) 100vw, 50vw"
+/>
+
               </div>
               <div className="p-8 flex flex-col flex-grow">
                 <h3 className="text-dark-text text-[1.75rem] font-bold mb-4">{card.title}</h3>

@@ -13,27 +13,27 @@ import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 
 const logoData = [
   {
-    src: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/svgs/brunel-university-london-pathway-college-logo-215-5.svg",
+    src: "/images/corousel/corousel.jpg",
     alt: "Brunel University London Pathway College logo",
   },
   {
-    src: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/svgs/western-sydney-university-international-college-lo-70.svg",
+    src: "/images/corousel/corousel1.jpg",
     alt: "Western Sydney University International College logo",
   },
   {
-    src: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/svgs/eynesbury-college-logo-215x100-19.svg",
+    src: "/images/corousel/corousel2.jpg",
     alt: "Eynesbury College logo",
   },
   {
-    src: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/svgs/srh-logo-215x100-57.svg",
+    src: "/images/corousel/corousel3.jpg",
     alt: "SRH University logo",
   },
   {
-    src: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/svgs/edith-cowan-college-logo-215x100-16.svg",
+    src: "/images/corousel/corousel4.jpg",
     alt: "Edith Cowan College logo",
   },
   {
-    src: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/svgs/university-waikato-college-logo-215x100-69.svg",
+    src: "/images/corousel/corousel5.jpg",
     alt: "University of Waikato College logo",
   },
 ];
@@ -44,13 +44,13 @@ const allDisplayLogos = [
   logoData[1],
   logoData[2],
   {
-    src: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/images/adelaide-uni-logo-placeholder.png",
+    src: "/images/corousel/corousel.jpg",
     alt: "Adelaide University",
   },
   logoData[4],
   logoData[5],
   {
-    src: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/images/acbi-logo-placeholder.png",
+    src: "/images/corousel/corousel1.jpg",
     alt: "ACBI logo",
   },
   logoData[3],
@@ -105,11 +105,9 @@ export default function CollegesCarousel() {
                 <div className="grid grid-cols-1 gap-y-8 sm:grid-cols-2 md:grid-cols-4 md:gap-x-12 md:gap-y-8">
                   {chunk.map((logo, i) => (
                     <div key={i} className="flex items-center justify-center h-[100px] px-4">
-                      <Image
+                      <img
                         src={logo.src}
                         alt={logo.alt}
-                        width={215}
-                        height={100}
                         className="object-contain max-h-full w-auto grayscale hover:grayscale-0 transition-all duration-300"
                       />
                     </div>
