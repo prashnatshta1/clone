@@ -18,12 +18,11 @@ export default function HomePage() {
         <SearchOptions />
         <WhyNavitas />
         <CollegesCarousel />
-        <OurStory />
         <PartnerCards />
         <ImportantCards />
       </main>
       <Footer />
-      <CookieBanner />
+      
     </>
   );
 }

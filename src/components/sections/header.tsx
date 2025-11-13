@@ -8,34 +8,16 @@ import SearchModal from "../ui/search-modal"
 
 const navItems = [
   { name: "Home", href: "/", hasDropdown: false },
-  {
-    name: "About us",
-    href: "#",
-    hasDropdown: true,
-    dropdownItems: [
-      { name: "What we do", href: "#" },
-      { name: "History", href: "#" },
-      { name: "Vision and values", href: "#" },
-      { name: "bigPartnership leadership", href: "#" },
-      { name: "The stories that made us", href: "#" },
-      {
-        name: "Careers at bigPartnership",
-        href: "#",
-        hasArrow: true,
-        subItems: [{ name: "Search jobs", href: "#" }],
-      },
-      { name: "Contact us", href: "/contact-us" },
-    ],
-  },
+  { name: "About us", href: "/aboutus", hasDropdown: false },
   {
     name: "Partners",
     href: "#",
     hasDropdown: true,
     dropdownItems: [
-      { name: "Universities", href: "#" },
-      { name: "Governments", href: "#" },
-      { name: "Industry partners", href: "#" },
-      { name: "School counsellors", href: "#" },
+      { name: "Universities", href: "/partners/universities" },
+      { name: "Governments", href: "/partners/governments" },
+      { name: "Industry partners", href: "/partners/industry-partners" },
+      { name: "School counsellors", href: "/partners/school-counsellors" },
     ],
   },
   {
@@ -43,9 +25,10 @@ const navItems = [
     href: "#",
     hasDropdown: true,
     dropdownItems: [
-      { name: "bigPartnership education trust", href: "#" },
-      { name: "Climate change", href: "#" },
-      { name: "Modern slavery", href: "#" },
+      { name: "bigPartnership education trust", href: "/impact/navitas-education-trust" },
+       { name: "Modern slavery", href: "/impact/modern-slavery" },
+      { name: "Climate change", href: "/impact/climate-change" },
+     
     ],
   },
   { name: "News", href: "#", hasDropdown: false },
@@ -69,7 +52,7 @@ export default function HeaderSection() {
   }, [isMenuOpen])
 
   return (
-    <header className="sticky top-0 bg-white shadow-sm z-50">
+    <header className="sticky top-0 bg-white shadow-sm z-50" style={{ fontFamily: 'moderat-reg, sans-serif, Arial, "Helvetica Neue", Helvetica' }}>
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Desktop Layout */}
@@ -88,7 +71,7 @@ export default function HeaderSection() {
                 <ul className="flex items-center gap-8">
                   {navItems.map((item) => (
                     <li key={item.name} className="group relative">
-                      <a
+                      <Link
                         href={item.href}
                         className="flex items-center gap-1.5 text-base font-medium text-gray-900 hover:text-teal-700 transition-colors py-1"
                       >
@@ -96,37 +79,18 @@ export default function HeaderSection() {
                         {item.hasDropdown && (
                           <ChevronDown size={16} className="group-hover:rotate-180 transition-transform duration-200" />
                         )}
-                      </a>
+                      </Link>
                       {item.hasDropdown && item.dropdownItems && (
                         <div className="absolute top-full left-0 mt-1 w-72 bg-white shadow-lg rounded-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-3">
                           <ul className="space-y-1">
                             {item.dropdownItems.map((dropdownItem) => (
                               <li key={dropdownItem.name} className="group/sub relative">
-                                <a
+                                <Link
                                   href={dropdownItem.href}
-                                  className="flex items-center justify-between px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-teal-700 transition-colors"
+                                  className="block px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-teal-700 transition-colors"
                                 >
-                                  <span>{dropdownItem.name}</span>
-                                  {dropdownItem.hasArrow && (
-                                    <ChevronDown size={14} className="rotate-[-90deg] text-gray-400" />
-                                  )}
-                                </a>
-                                {dropdownItem.subItems && (
-                                  <div className="hidden group-hover/sub:block absolute left-full top-0 ml-1 w-56 bg-white shadow-lg border border-gray-100 rounded-lg py-2">
-                                    <ul className="space-y-0">
-                                      {dropdownItem.subItems.map((subItem) => (
-                                        <li key={subItem.name}>
-                                          <a
-                                            href={subItem.href}
-                                            className="block px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-teal-700 transition-colors"
-                                          >
-                                            {subItem.name}
-                                          </a>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                )}
+                                  {dropdownItem.name}
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -138,18 +102,18 @@ export default function HeaderSection() {
               </nav>
             </div>
             <div className="flex items-center gap-4">
-              <a
+              <Link
                 href="/apply-to-study"
                 className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-teal-800 transition-colors"
               >
                 Apply to study
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/contact-us"
                 className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-teal-800 transition-colors"
               >
                 Contact us
-              </a>
+              </Link>
               <button
                 onClick={() => setIsSearchOpen(true)}
                 aria-label="Search"
@@ -195,54 +159,37 @@ export default function HeaderSection() {
             <ul className="flex flex-col">
               {navItems.map((item) => (
                 <li key={item.name} className="border-b border-gray-200">
-                  <button
-                    onClick={() => setOpenDropdown(openDropdown === item.name ? null : item.name)}
-                    className="flex justify-between items-center w-full py-4 text-gray-800 font-medium text-lg hover:text-teal-700 transition-colors"
-                  >
-                    {item.name}
-                    {item.hasDropdown && (
+                  {item.hasDropdown ? (
+                    <button
+                      onClick={() => setOpenDropdown(openDropdown === item.name ? null : item.name)}
+                      className="flex justify-between items-center w-full py-4 text-gray-800 font-medium text-lg hover:text-teal-700 transition-colors"
+                    >
+                      {item.name}
                       <ChevronDown
                         size={20}
                         className={`transition-transform duration-200 ${openDropdown === item.name ? "rotate-180" : ""}`}
                       />
-                    )}
-                  </button>
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="flex items-center w-full py-4 text-gray-800 font-medium text-lg hover:text-teal-700 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
                   {item.hasDropdown && item.dropdownItems && openDropdown === item.name && (
                     <ul className="pl-4 pb-2 space-y-1">
                       {item.dropdownItems.map((dropdownItem) => (
                         <li key={dropdownItem.name}>
-                          <button
-                            onClick={() =>
-                              dropdownItem.subItems
-                                ? setExpandedSubItem(expandedSubItem === dropdownItem.name ? null : dropdownItem.name)
-                                : null
-                            }
-                            className="flex items-center justify-between w-full py-2.5 text-sm font-medium text-gray-700 hover:text-teal-700 transition-colors"
+                          <Link
+                            href={dropdownItem.href}
+                            className="block py-3 text-gray-700 font-medium hover:text-teal-700 transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
                           >
-                            <span>{dropdownItem.name}</span>
-                            {dropdownItem.hasArrow && (
-                              <ChevronDown
-                                size={14}
-                                className={`rotate-[-90deg] transition-transform ${
-                                  expandedSubItem === dropdownItem.name ? "rotate-0" : ""
-                                }`}
-                              />
-                            )}
-                          </button>
-                          {dropdownItem.subItems && expandedSubItem === dropdownItem.name && (
-                            <ul className="pl-4 mt-1 space-y-1">
-                              {dropdownItem.subItems.map((subItem) => (
-                                <li key={subItem.name}>
-                                  <a
-                                    href={subItem.href}
-                                    className="block py-2 text-xs text-gray-600 hover:text-teal-700 transition-colors"
-                                  >
-                                    {subItem.name}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
+                            {dropdownItem.name}
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -252,18 +199,18 @@ export default function HeaderSection() {
             </ul>
           </nav>
           <div className="py-6 mt-auto flex flex-col gap-3">
-            <a
+            <Link
               href="/apply-to-study"
               className="w-full text-center bg-teal-700 text-white px-4 py-3 rounded-md font-semibold text-sm hover:bg-teal-800 transition-colors"
             >
               Apply to study
-            </a>
-            <a
+            </Link>
+            <Link
               href="/contact-us"
               className="w-full text-center bg-teal-700 text-white px-4 py-3 rounded-md font-semibold text-sm hover:bg-teal-800 transition-colors"
             >
               Contact us
-            </a>
+            </Link>
           </div>
         </div>
       </div>

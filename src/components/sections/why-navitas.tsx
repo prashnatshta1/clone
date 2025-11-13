@@ -61,7 +61,7 @@ const WhyNavitas = () => {
     <section className="bg-[#F5F5F5] py-16">
       <div className="container mx-auto px-8 md:px-4">
         <h2 className="text-center text-[2.5rem] font-bold text-[#1A1A1A] mb-16 leading-tight">
-          Why Navitas
+          Why bigPartnership
         </h2>
         <div className="flex flex-col md:flex-row justify-center items-start gap-y-6 md:gap-x-8 max-w-6xl mx-auto">
           {statsData.map((stat, index) => (

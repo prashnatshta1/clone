@@ -3,18 +3,18 @@ import Image from 'next/image';
 
 const cardData = [
   {
-    imageSrc: 'https://placehold.co/400x300/e0e0e0/1a1a1a?text=Our+Impact',
-    imageAlt: 'Artistic image of hands holding Earth with natural background',
+    imageSrc: 'https://www.navitas.com/wp-content/uploads/2023/08/hands-holding-world-200x200-1.jpg',
+    imageAlt: 'Planet earth resting in two cradled hands',
     title: 'Our impact',
     description: 'We want to operate in a way that positively impacts current generations – without compromise for future generations.',
-    link: '#',
+    link: 'https://www.navitas.com/impact/',
   },
   {
-    imageSrc: 'https://placehold.co/400x300/e0e0e0/1a1a1a?text=NET',
-    imageAlt: 'A student studying attentively',
+    imageSrc: 'https://www.navitas.com/wp-content/uploads/2023/07/child-student-reading-200x200-1.jpg',
+    imageAlt: 'Young child student reading in school',
     title: 'NET',
     description: 'The Navitas Education Trust (NET) supports innovative organisations bringing education opportunities to people around the world.',
-    link: '#',
+    link: '/impact/navitas-education-trust',
   },
 ];
 
@@ -29,31 +29,31 @@ const ImportantCards = () => {
           {cardData.map((card, index) => (
             <div
               key={index}
-              className="bg-card rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[1.02] flex flex-col"
+              className="bg-white rounded-lg shadow-md overflow-hidden p-6"
             >
-              <div className="w-full">
-                <Image
-                  src={card.imageSrc}
-                  alt={card.imageAlt}
-                  width={400}
-                  height={300}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-              <div className="p-8 flex flex-col flex-grow">
-                <h3 className="text-[1.75rem] font-bold text-foreground mb-4 leading-tight">
-                  {card.title}
-                </h3>
-                <p className="text-lg text-foreground mb-8 flex-grow">
-                  {card.description}
-                </p>
-                <a
-                  href={card.link}
-                  className="inline-block text-center bg-accent text-accent-foreground font-semibold py-3 px-6 rounded-md hover:bg-accent/90 transition-colors mt-auto self-start"
-                  aria-label={`Learn more about ${card.title}`}
-                >
-                  Learn more
-                </a>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <img
+                    src={card.imageSrc}
+                    alt={card.imageAlt}
+                    className="w-[200px] h-[200px] object-cover rounded"
+                  />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-[1.5rem] font-bold text-foreground mb-3 leading-tight">
+                    {card.title}
+                  </h3>
+                  <p className="text-base text-foreground mb-4">
+                    {card.description}
+                  </p>
+                  <a
+                    href={card.link}
+                    className="inline-block text-center bg-[#C4008C] text-white font-semibold py-3 px-6 rounded-md hover:brightness-90 transition-colors"
+                    aria-label={`Learn more about ${card.title}`}
+                  >
+                    Learn more
+                  </a>
+                </div>
               </div>
             </div>
           ))}

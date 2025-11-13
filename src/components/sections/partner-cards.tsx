@@ -3,18 +3,18 @@ import Link from "next/link";
 
 const cardData = [
   {
-    imageSrc: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop",
-    imageAlt: "Professional man in a business setting",
+    imageSrc: "https://www.navitas.com/wp-content/uploads/2023/07/professional-agent-laptop-200x200-1.jpg",
+    imageAlt: "Professional agent using laptop and smiling",
     title: "Agents",
     description: "Find out how to become a Navitas agent. Explore resources and discover opportunities.",
-    link: "#",
+    link: "https://www.navitas.com/partners/agents/",
   },
   {
-    imageSrc: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&h=300&fit=crop",
-    imageAlt: "Students in a collaborative setting with red chairs",
+    imageSrc: "https://www.navitas.com/wp-content/uploads/2023/07/students-sitting-campus-200x200-1.jpg",
+    imageAlt: "students sitting on campus talking",
     title: "Universities",
     description: "Find high-quality international opportunities and expand your offerings to all corners of the globe.",
-    link: "#",
+    link: "https://www.navitas.com/partners/universities/",
   },
 ];
 
@@ -27,28 +27,27 @@ const PartnerCards = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {cardData.map((card) => (
-            <div key={card.title} className="flex flex-col bg-secondary rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[1.02]">
-              <div className="relative w-full aspect-[4/3]">
-              <Image
-  src={card.imageSrc}
-  alt={card.imageAlt}
-  fill
-  style={{ objectFit: "cover" }}
-  sizes="(max-width: 768px) 100vw, 50vw"
-/>
-
-              </div>
-              <div className="p-8 flex flex-col flex-grow">
-                <h3 className="text-dark-text text-[1.75rem] font-bold mb-4">{card.title}</h3>
-                <p className="text-dark-text text-lg mb-8 flex-grow">
-                  {card.description}
-                </p>
-                <Link
-                  href={card.link}
-                  className="inline-block bg-[#C4008C] text-white font-semibold text-center px-6 py-3 rounded-md transition-colors hover:brightness-90 mt-auto self-start"
-                >
-                  Learn more
-                </Link>
+            <div key={card.title} className="bg-white rounded-lg shadow-md overflow-hidden p-6">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <img
+                    src={card.imageSrc}
+                    alt={card.imageAlt}
+                    className="w-[200px] h-[200px] object-cover rounded"
+                  />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-dark-text text-[1.5rem] font-bold mb-3">{card.title}</h3>
+                  <p className="text-dark-text text-base mb-4">
+                    {card.description}
+                  </p>
+                  <Link
+                    href={card.link}
+                    className="inline-block bg-[#C4008C] text-white font-semibold text-center px-6 py-3 rounded-md transition-colors hover:brightness-90"
+                  >
+                    Learn more
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

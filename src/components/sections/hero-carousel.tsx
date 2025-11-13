@@ -14,10 +14,10 @@ import {
 
 const slides = [
   {
-    heading: "Introducing Navitas Advantage!",
+    heading: "Introducing bigPartnership Advantage!",
     subheading:
-      "A refreshed, student-focused repositioning of Navitas’ pathway programs.",
-    cta: "Gain the Navitas Advantage",
+      "A refreshed, student-focused repositioning of bigPartnership’ pathway programs.",
+    cta: "Gain the bigPartnership Advantage",
     ctaLink: "/study/advantage/",
     image: "/images/firstimg.jpg",
   },
@@ -32,7 +32,7 @@ const slides = [
   {
     heading: "Global education provider",
     subheading:
-      "Navitas connects students, agents, universities, and industry to an exceptional international higher education experience.",
+      "bigPartnership connects students, agents, universities, and industry to an exceptional international higher education experience.",
     cta: "Find out more",
     ctaLink: "#",
     image: "/images/thirdimg.jpg",
