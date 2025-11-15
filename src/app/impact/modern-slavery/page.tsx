@@ -80,7 +80,7 @@ export default function ModernSlaveryPage() {
                   supply chains is a requirement of legislation in the UK and Australia
                 </p>
                 <a
-                  href="https://www.bigpartnership.com/wp-content/uploads/2025/02/bigPartnership-Modern-Slavery-Statement-2024.pdf"
+                  href=""
                   target="_blank"
                   className="bg-[#C4008C] text-white px-6 py-3 rounded-md font-semibold hover:brightness-90 transition-colors inline-block"
                   rel="noreferrer"
@@ -113,7 +113,7 @@ export default function ModernSlaveryPage() {
                   </p>
                   <p>
                     <a
-                      href="https://www.bigpartnership.com/wp-content/uploads/2024/09/Modern-Slavery-Information-for-Students-Flyer-2024.pdf"
+                      href=""
                       target="_blank"
                       className="text-teal-600 hover:underline"
                       rel="noreferrer noopener"
@@ -127,7 +127,7 @@ export default function ModernSlaveryPage() {
                   </p>
                 </div>
                 <a
-                  href="https://bigpartnership.donesafe.com/module_records/public_new?module_name_id=13&default_template_id=public_report"
+                  href=""
                   target="_blank"
                   className="bg-[#C4008C] text-white px-6 py-3 rounded-md font-semibold hover:brightness-90 transition-colors inline-block"
                   rel="noreferrer"
@@ -230,7 +230,7 @@ export default function ModernSlaveryPage() {
                   Our impact
                 </a>
                 <a
-                  href="https://www.bigpartnership.com/wp-content/uploads/2025/03/bigPartnership-Impact-Report-FY24.pdf"
+                  href=""
                   target="_blank"
                   className="bg-[#C4008C] text-white px-6 py-3 rounded-md font-semibold hover:brightness-90 transition-colors"
                   rel="noreferrer"

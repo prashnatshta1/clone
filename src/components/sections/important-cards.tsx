@@ -7,7 +7,7 @@ const cardData = [
     imageAlt: 'Planet earth resting in two cradled hands',
     title: 'Our impact',
     description: 'We want to operate in a way that positively impacts current generations – without compromise for future generations.',
-    link: 'https://www.navitas.com/impact/',
+    link: '',
   },
   {
     imageSrc: 'https://www.navitas.com/wp-content/uploads/2023/07/child-student-reading-200x200-1.jpg',
@@ -29,7 +29,7 @@ const ImportantCards = () => {
           {cardData.map((card, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-md overflow-hidden p-6"
+              className="bg-gray-200 rounded-lg shadow-md overflow-hidden p-6"
             >
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">

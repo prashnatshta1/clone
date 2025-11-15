@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronDown, Menu, X, Search } from "lucide-react"
+import { ChevronDown, Menu, X, Search } from 'lucide-react'
 import SearchModal from "../ui/search-modal"
 
 const navItems = [
@@ -11,7 +11,7 @@ const navItems = [
   { name: "About us", href: "/aboutus", hasDropdown: false },
   {
     name: "Partners",
-    href: "#",
+    href: "/partners",
     hasDropdown: true,
     dropdownItems: [
       { name: "Universities", href: "/partners/universities" },
@@ -22,13 +22,12 @@ const navItems = [
   },
   {
     name: "Impact",
-    href: "#",
+    href: "/impact",
     hasDropdown: true,
     dropdownItems: [
       { name: "bigPartnership education trust", href: "/impact/navitas-education-trust" },
-       { name: "Modern slavery", href: "/impact/modern-slavery" },
+      { name: "Modern slavery", href: "/impact/modern-slavery" },
       { name: "Climate change", href: "/impact/climate-change" },
-     
     ],
   },
   { name: "News", href: "#", hasDropdown: false },
@@ -52,13 +51,13 @@ export default function HeaderSection() {
   }, [isMenuOpen])
 
   return (
-    <header className="sticky top-0 bg-white shadow-sm z-50" style={{ fontFamily: 'moderat-reg, sans-serif, Arial, "Helvetica Neue", Helvetica' }}>
+    <header className="sticky top-0 bg-white border-b border-gray-100 z-50 shadow-xs" style={{ fontFamily: 'moderat-reg, sans-serif, Arial, "Helvetica Neue", Helvetica' }}>
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24">
           {/* Desktop Layout */}
           <div className="hidden xl:flex items-center justify-between w-full">
-            <div className="flex items-center gap-12">
-              <Link href="/">
+            <div className="flex items-center gap-16">
+              <Link href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
                 <Image
                   src="/images/logo.png"
                   alt="bigPartnership"
@@ -68,26 +67,26 @@ export default function HeaderSection() {
                 />
               </Link>
               <nav>
-                <ul className="flex items-center gap-8">
+                <ul className="flex items-center gap-10">
                   {navItems.map((item) => (
                     <li key={item.name} className="group relative">
                       <Link
                         href={item.href}
-                        className="flex items-center gap-1.5 text-base font-medium text-gray-900 hover:text-teal-700 transition-colors py-1"
+                        className="flex items-center gap-1.5 text-sm font-medium text-gray-700 hover:text-teal-700 transition-colors duration-200 py-2"
                       >
                         {item.name}
                         {item.hasDropdown && (
-                          <ChevronDown size={16} className="group-hover:rotate-180 transition-transform duration-200" />
+                          <ChevronDown size={16} className="text-gray-500 group-hover:text-teal-700 group-hover:rotate-180 transition-all duration-200" />
                         )}
                       </Link>
                       {item.hasDropdown && item.dropdownItems && (
-                        <div className="absolute top-full left-0 mt-1 w-72 bg-white shadow-lg rounded-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-3">
-                          <ul className="space-y-1">
+                        <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                          <ul className="space-y-0">
                             {item.dropdownItems.map((dropdownItem) => (
                               <li key={dropdownItem.name} className="group/sub relative">
                                 <Link
                                   href={dropdownItem.href}
-                                  className="block px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 hover:text-teal-700 transition-colors"
+                                  className="block px-5 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 transition-colors duration-150"
                                 >
                                   {dropdownItem.name}
                                 </Link>
@@ -101,23 +100,23 @@ export default function HeaderSection() {
                 </ul>
               </nav>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <Link
                 href="/apply-to-study"
-                className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-teal-800 transition-colors"
+                className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-teal-800 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 Apply to study
               </Link>
               <Link
                 href="/contact-us"
-                className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-teal-800 transition-colors"
+                className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-teal-800 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 Contact us
               </Link>
               <button
                 onClick={() => setIsSearchOpen(true)}
                 aria-label="Search"
-                className="p-2 text-gray-600 hover:text-teal-700 transition-colors"
+                className="p-2.5 text-gray-600 hover:text-teal-700 hover:bg-gray-100 rounded-md transition-all duration-200 ml-2"
               >
                 <Search size={20} />
               </button>
@@ -126,7 +125,7 @@ export default function HeaderSection() {
 
           {/* Mobile Layout */}
           <div className="flex xl:hidden items-center justify-between w-full">
-            <Link href="/">
+            <Link href="/" className="flex-shrink-0">
               <Image
                 src="/images/logo.png"
                 alt="bigPartnership"
@@ -134,14 +133,14 @@ export default function HeaderSection() {
                 height={32}
               />
             </Link>
-            <div className="flex items-center">
-              <button onClick={() => setIsSearchOpen(true)} aria-label="Search" className="p-2 text-gray-700">
+            <div className="flex items-center gap-2">
+              <button onClick={() => setIsSearchOpen(true)} aria-label="Search" className="p-2.5 text-gray-700 hover:text-teal-700 hover:bg-gray-100 rounded-md transition-colors">
                 <Search size={22} />
               </button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
-                className="p-2 text-gray-700 z-50"
+                className="p-2.5 text-gray-700 hover:text-teal-700 hover:bg-gray-100 rounded-md transition-colors z-50"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -154,38 +153,38 @@ export default function HeaderSection() {
       <div
         className={`fixed top-0 left-0 h-full w-full bg-white z-40 transform transition-transform duration-300 ease-in-out xl:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="container mx-auto px-6 h-full flex flex-col pt-20">
-          <nav className="flex-grow mt-8">
+        <div className="container mx-auto px-6 h-full flex flex-col pt-24">
+          <nav className="flex-grow mt-6">
             <ul className="flex flex-col">
               {navItems.map((item) => (
-                <li key={item.name} className="border-b border-gray-200">
+                <li key={item.name} className="border-b border-gray-100">
                   {item.hasDropdown ? (
                     <button
                       onClick={() => setOpenDropdown(openDropdown === item.name ? null : item.name)}
-                      className="flex justify-between items-center w-full py-4 text-gray-800 font-medium text-lg hover:text-teal-700 transition-colors"
+                      className="flex justify-between items-center w-full py-4 text-gray-800 font-medium text-base hover:text-teal-700 transition-colors"
                     >
                       {item.name}
                       <ChevronDown
                         size={20}
-                        className={`transition-transform duration-200 ${openDropdown === item.name ? "rotate-180" : ""}`}
+                        className={`transition-transform duration-200 text-gray-500 ${openDropdown === item.name ? "rotate-180 text-teal-700" : ""}`}
                       />
                     </button>
                   ) : (
                     <Link
                       href={item.href}
-                      className="flex items-center w-full py-4 text-gray-800 font-medium text-lg hover:text-teal-700 transition-colors"
+                      className="flex items-center w-full py-4 text-gray-800 font-medium text-base hover:text-teal-700 transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
                   )}
                   {item.hasDropdown && item.dropdownItems && openDropdown === item.name && (
-                    <ul className="pl-4 pb-2 space-y-1">
+                    <ul className="pl-4 pb-2 space-y-1 bg-gray-50">
                       {item.dropdownItems.map((dropdownItem) => (
                         <li key={dropdownItem.name}>
                           <Link
                             href={dropdownItem.href}
-                            className="block py-3 text-gray-700 font-medium hover:text-teal-700 transition-colors"
+                            className="block py-3 text-gray-700 font-medium text-sm hover:text-teal-700 transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {dropdownItem.name}
@@ -198,16 +197,16 @@ export default function HeaderSection() {
               ))}
             </ul>
           </nav>
-          <div className="py-6 mt-auto flex flex-col gap-3">
+          <div className="py-8 mt-auto flex flex-col gap-3 border-t border-gray-100">
             <Link
               href="/apply-to-study"
-              className="w-full text-center bg-teal-700 text-white px-4 py-3 rounded-md font-semibold text-sm hover:bg-teal-800 transition-colors"
+              className="w-full text-center bg-teal-700 text-white px-4 py-3 rounded-md font-semibold text-sm hover:bg-teal-800 transition-all duration-200 shadow-sm"
             >
               Apply to study
             </Link>
             <Link
               href="/contact-us"
-              className="w-full text-center bg-teal-700 text-white px-4 py-3 rounded-md font-semibold text-sm hover:bg-teal-800 transition-colors"
+              className="w-full text-center bg-teal-700 text-white px-4 py-3 rounded-md font-semibold text-sm hover:bg-teal-800 transition-all duration-200 shadow-sm"
             >
               Contact us
             </Link>

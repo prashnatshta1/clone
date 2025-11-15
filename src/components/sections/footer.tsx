@@ -29,7 +29,7 @@ const Footer = () => {
           <div className="space-y-6">
             <a href="" aria-label="Home">
               <Image
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/5eab35f5-1148-4b08-8ed1-61b8b2785f2c-navitas-com/assets/svgs/navitas-logo-1.svg"
+                src="/images/logo.png"
                 alt="bigPartnership"
                 width={120}
                 height={30}

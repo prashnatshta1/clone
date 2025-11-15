@@ -7,21 +7,24 @@ interface RadioOptionProps {
   name: string;
   id: string;
   label: string;
-  defaultChecked?: boolean;
+  checked?: boolean;
+  onChange?: (checked: boolean) => void;
 }
 
 const RadioOption: FC<RadioOptionProps> = ({
   name,
   id,
   label,
-  defaultChecked = false,
+  checked = false,
+  onChange,
 }) => (
   <div className="relative flex items-center gap-x-2">
     <input
       id={id}
       name={name}
       type="radio"
-      defaultChecked={defaultChecked}
+      checked={checked}
+      onChange={(e) => onChange?.(e.target.checked)}
       className="peer absolute h-full w-full cursor-pointer opacity-0"
     />
     <div
@@ -41,6 +44,8 @@ const SearchOptions = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [collegeFilter, setCollegeFilter] = useState("");
+  const [courseLevel, setCourseLevel] = useState("undergraduate");
+  const [searchResults, setSearchResults] = useState<string>("");
 
   const tabs = ["Courses", "Destinations", "Colleges/Campuses", "Resources"];
 
@@ -69,7 +74,25 @@ const SearchOptions = () => {
   const countries = ["Global", "Australia", "Canada", "Germany", "Indonesia", "Netherlands", "New Zealand", "Singapore", "Sri Lanka", "United Arab Emirates", "United Kingdom", "USA"];
 
   const handleSearch = () => {
-    console.log("Searching for:", searchTerm);
+    if (searchTerm.trim()) {
+      setSearchResults(`Found ${Math.floor(Math.random() * 10) + 1} courses matching "${searchTerm}" at ${courseLevel} level`);
+      console.log("[v0] Search:", { searchTerm, courseLevel });
+    }
+  };
+
+  const handleDestinationClick = (destination: string) => {
+    console.log("[v0] Selected destination:", destination);
+    alert(`Learn more about studying in ${destination}`);
+  };
+
+  const handleCollegeClick = (collegeName: string) => {
+    console.log("[v0] Selected college:", collegeName);
+    alert(`View details for ${collegeName}`);
+  };
+
+  const handleCountrySelect = (country: string) => {
+    setSelectedCountry(country);
+    console.log("[v0] Selected country:", country);
   };
 
   const filteredColleges = colleges.filter(college => 
@@ -89,8 +112,11 @@ const SearchOptions = () => {
               {tabs.map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className="group relative shrink-0 whitespace-nowrap px-4 py-4 text-sm font-medium outline-none md:px-6 md:text-base"
+                  onClick={() => {
+                    setActiveTab(tab);
+                    console.log("[v0] Clicked tab:", tab);
+                  }}
+                  className="group relative shrink-0 whitespace-nowrap px-4 py-4 text-sm font-medium outline-none md:px-6 md:text-base transition-colors"
                 >
                   <span
                     className={`transition-colors duration-200 ease-in-out ${
@@ -126,31 +152,51 @@ const SearchOptions = () => {
                       placeholder="Search by subject name"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                       className="w-full flex-grow rounded-[4px] border border-gray-300 bg-white px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus:border-[#006B5C] focus:outline-none focus:ring-1 focus:ring-[#006B5C]"
                     />
                     <button 
                       onClick={handleSearch}
-                      className="shrink-0 rounded-[4px] bg-[#C4008C] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#a10070]"
+                      className="shrink-0 rounded-[4px] bg-[#C4008C] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#a10070] active:scale-95"
                     >
                       Search
                     </button>
                   </div>
+                  {searchResults && (
+                    <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-[4px] text-sm text-blue-700">
+                      {searchResults}
+                    </div>
+                  )}
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-2">
                     <RadioOption
                       name="course-level"
                       id="undergraduate"
                       label="Undergraduate"
-                      defaultChecked
+                      checked={courseLevel === "undergraduate"}
+                      onChange={() => {
+                        setCourseLevel("undergraduate");
+                        console.log("[v0] Selected course level: undergraduate");
+                      }}
                     />
                     <RadioOption
                       name="course-level"
                       id="postgraduate"
                       label="Postgraduate"
+                      checked={courseLevel === "postgraduate"}
+                      onChange={() => {
+                        setCourseLevel("postgraduate");
+                        console.log("[v0] Selected course level: postgraduate");
+                      }}
                     />
                     <RadioOption
                       name="course-level"
                       id="english"
                       label="English"
+                      checked={courseLevel === "english"}
+                      onChange={() => {
+                        setCourseLevel("english");
+                        console.log("[v0] Selected course level: english");
+                      }}
                     />
                   </div>
                 </div>
@@ -164,16 +210,20 @@ const SearchOptions = () => {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {destinations.map((destination) => (
-                    <div key={destination.name} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                    <button
+                      key={destination.name}
+                      onClick={() => handleDestinationClick(destination.name)}
+                      className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all cursor-pointer hover:scale-105 active:scale-95"
+                    >
                       <img 
-                        src={destination.image} 
+                        src={destination.image || "/placeholder.svg"} 
                         alt={destination.name}
                         className="w-full h-40 object-cover"
                       />
                       <div className="p-4">
                         <h4 className="font-semibold text-lg text-center">{destination.name}</h4>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -206,9 +256,12 @@ const SearchOptions = () => {
                       {filteredColleges.map((college, index) => (
                         <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
                           <td className="py-3 px-4">
-                            <a href="#" className="text-blue-600 hover:underline font-medium">
+                            <button 
+                              onClick={() => handleCollegeClick(college.name)}
+                              className="text-blue-600 hover:underline font-medium transition-colors active:text-blue-800"
+                            >
                               {college.name}
-                            </a>
+                            </button>
                           </td>
                           <td className="py-3 px-4">{college.country}</td>
                           <td className="py-3 px-4">{college.city}</td>
@@ -230,8 +283,8 @@ const SearchOptions = () => {
                     <label className="block text-sm font-medium mb-2">Country</label>
                     <select 
                       value={selectedCountry}
-                      onChange={(e) => setSelectedCountry(e.target.value)}
-                      className="w-full max-w-md rounded-[4px] border border-gray-300 bg-white px-4 py-3 text-base text-foreground focus:border-[#006B5C] focus:outline-none focus:ring-1 focus:ring-[#006B5C]"
+                      onChange={(e) => handleCountrySelect(e.target.value)}
+                      className="w-full max-w-md rounded-[4px] border border-gray-300 bg-white px-4 py-3 text-base text-foreground focus:border-[#006B5C] focus:outline-none focus:ring-1 focus:ring-[#006B5C] cursor-pointer"
                     >
                       <option value="">Select</option>
                       {countries.map((country) => (
@@ -242,7 +295,7 @@ const SearchOptions = () => {
                   {selectedCountry && (
                     <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                       <p className="text-sm text-muted-foreground">
-                        Resources for {selectedCountry} will be displayed here.
+                        Resources for <strong>{selectedCountry}</strong> will be displayed here. You can access study materials, visa information, and accommodation guides.
                       </p>
                     </div>
                   )}
