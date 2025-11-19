@@ -30,7 +30,7 @@ const navItems = [
       { name: "Climate change", href: "/impact/climate-change" },
     ],
   },
-  { name: "News", href: "#", hasDropdown: false },
+  { name: "News", href: "/news", hasDropdown: false },
 ]
 
 export default function HeaderSection() {
@@ -61,8 +61,8 @@ export default function HeaderSection() {
                 <Image
                   src="/images/logo.png"
                   alt="bigPartnership"
-                  width={150}
-                  height={38}
+                  width={180}
+                  height={46}
                   priority
                 />
               </Link>
@@ -72,11 +72,11 @@ export default function HeaderSection() {
                     <li key={item.name} className="group relative">
                       <Link
                         href={item.href}
-                        className="flex items-center gap-1.5 text-sm font-medium text-gray-700 hover:text-teal-700 transition-colors duration-200 py-2"
+                        className="flex items-center gap-1.5 text-base font-medium text-black hover:text-teal-700 transition-colors duration-200 py-2"
                       >
                         {item.name}
                         {item.hasDropdown && (
-                          <ChevronDown size={16} className="text-gray-500 group-hover:text-teal-700 group-hover:rotate-180 transition-all duration-200" />
+                          <ChevronDown size={18} className="text-gray-500 group-hover:text-teal-700 group-hover:rotate-180 transition-all duration-200" />
                         )}
                       </Link>
                       {item.hasDropdown && item.dropdownItems && (
@@ -86,7 +86,7 @@ export default function HeaderSection() {
                               <li key={dropdownItem.name} className="group/sub relative">
                                 <Link
                                   href={dropdownItem.href}
-                                  className="block px-5 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 transition-colors duration-150"
+                                  className="block px-5 py-3 text-base text-black hover:bg-teal-50 hover:text-teal-700 transition-colors duration-150"
                                 >
                                   {dropdownItem.name}
                                 </Link>
@@ -103,13 +103,13 @@ export default function HeaderSection() {
             <div className="flex items-center gap-3">
               <Link
                 href="/apply-to-study"
-                className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-teal-800 transition-all duration-200 shadow-sm hover:shadow-md"
+                className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-base hover:bg-teal-800 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 Apply to study
               </Link>
               <Link
                 href="/contact-us"
-                className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-teal-800 transition-all duration-200 shadow-sm hover:shadow-md"
+                className="bg-teal-700 text-white px-6 py-2.5 rounded-md font-semibold text-base hover:bg-teal-800 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 Contact us
               </Link>
@@ -129,8 +129,8 @@ export default function HeaderSection() {
               <Image
                 src="/images/logo.png"
                 alt="bigPartnership"
-                width={120}
-                height={32}
+                width={140}
+                height={37}
               />
             </Link>
             <div className="flex items-center gap-2">
@@ -161,7 +161,7 @@ export default function HeaderSection() {
                   {item.hasDropdown ? (
                     <button
                       onClick={() => setOpenDropdown(openDropdown === item.name ? null : item.name)}
-                      className="flex justify-between items-center w-full py-4 text-gray-800 font-medium text-base hover:text-teal-700 transition-colors"
+                      className="flex justify-between items-center w-full py-4 text-black font-medium text-lg hover:text-teal-700 transition-colors"
                     >
                       {item.name}
                       <ChevronDown
@@ -172,7 +172,7 @@ export default function HeaderSection() {
                   ) : (
                     <Link
                       href={item.href}
-                      className="flex items-center w-full py-4 text-gray-800 font-medium text-base hover:text-teal-700 transition-colors"
+                      className="flex items-center w-full py-4 text-black font-medium text-lg hover:text-teal-700 transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
@@ -184,7 +184,7 @@ export default function HeaderSection() {
                         <li key={dropdownItem.name}>
                           <Link
                             href={dropdownItem.href}
-                            className="block py-3 text-gray-700 font-medium text-sm hover:text-teal-700 transition-colors"
+                            className="block py-3 text-black font-medium text-base hover:text-teal-700 transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {dropdownItem.name}

@@ -1,10 +1,42 @@
 'use client'
 
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { DollarSign, Brain, Building2, ArrowRight, ChevronRight } from 'lucide-react'
 import HeaderSection from '@/src/components/sections/header'
 import Footer from '@/src/components/sections/footer'
 
+interface NewsArticle {
+  _id: string
+  title: string
+  content: string
+  author: string
+  date: string
+  category: string
+  image?: string
+}
+
 export default function Home() {
+  const [news, setNews] = useState<NewsArticle[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchNews()
+  }, [])
+
+  const fetchNews = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/news')
+      if (response.ok) {
+        const data = await response.json()
+        setNews(data.slice(0, 3)) // Show only 3 latest articles
+      }
+    } catch (error) {
+      console.error('Error fetching news:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
   const stats = [
     {
       icon: DollarSign,
@@ -44,23 +76,7 @@ export default function Home() {
     },
   ]
 
-  const news = [
-    {
-      id: 1,
-      title: 'A year of partnership: stories from our five NET partners in FY25',
-      image: 'images/impact/net-update.jpg',
-    },
-    {
-      id: 2,
-      title: 'Empowering the next generation in Vietnam: hospitality training with KOTO',
-      image: 'images/impact/navitas-news.jpg',
-    },
-    {
-      id: 3,
-      title: 'Green Apple – our eMagazine for bigPartnership educators – issue #14 is now live!',
-      image: 'images/impact/Green-Apple-launch.jpg',
-    },
-  ]
+
 
   return (
     <main className="min-h-screen bg-white">
@@ -298,45 +314,94 @@ export default function Home() {
       </section>
 
       {/* News Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-end mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-              Latest Impact news
-            </h2>
-            <a href="#" className="text-emerald-600 hover:text-emerald-700 font-semibold flex items-center gap-1 group">
-              More News <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition" />
-            </a>
-          </div>
+   <section className="py-16 md:py-24 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {news.map((article) => (
-              <a
-                key={article.id}
-                href="#"
-                className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
-              >
-                <div className="overflow-hidden h-56 relative">
+    <div className="flex justify-between items-end mb-12">
+      <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+        Latest Impact news
+      </h2>
+      <Link
+        href="/news"
+        className="text-emerald-600 hover:text-emerald-700 font-semibold flex items-center gap-1 group"
+      >
+        More News
+        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+      </Link>
+    </div>
+
+    {loading ? (
+      <div className="flex justify-center py-12">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+      </div>
+    ) : (
+      <div className="grid md:grid-cols-3 gap-8">
+        {news.map((article) => (
+          <article
+            key={article._id}
+            className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden"
+          >
+            <Link href={`/news/${article._id}`} className="block">
+
+              <div className="h-56 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                {article.image ? (
                   <img
-                    src={article.image || "/placeholder.svg?height=300&width=400&query=news-article"}
+                    src={`http://localhost:5000/${article.image}`}
                     alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition" />
-                </div>
-                <div className="p-6">
-                  <p className="font-semibold text-gray-900 group-hover:text-emerald-600 transition line-clamp-3 text-base">
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-50 to-emerald-100">
+                    <svg className="w-16 h-16 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              <div className="p-6">
+
+                <div className="mb-4">
+                  {article.category && (
+                    <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-semibold rounded-full mb-3">
+                      {article.category}
+                    </span>
+                  )}
+
+                  <h3 className="text-xl font-bold text-gray-900 leading-tight mb-3 group-hover:text-emerald-700 transition-colors duration-300">
                     {article.title}
-                  </p>
-                  <div className="mt-4 flex justify-end">
-                    <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-emerald-600 transition" />
+                  </h3>
+
+                  <div className="flex items-center justify-between text-sm text-gray-500">
+                    <time className="font-medium">
+                      {new Date(article.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </time>
+
+                    {article.author && (
+                      <span className="font-medium">By {article.author}</span>
+                    )}
                   </div>
                 </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <span className="text-emerald-600 font-semibold group-hover:text-emerald-700 transition-colors">
+                    Read Article
+                  </span>
+                  <ChevronRight className="w-5 h-5 text-emerald-600 group-hover:translate-x-1 transition-transform duration-300" />
+                </div>
+              </div>
+            </Link>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
 
       <Footer />
     </main>

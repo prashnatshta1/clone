@@ -3,6 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
+      // Local backend
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "5000",
+        pathname: "/uploads/**",
+      },
       // Supabase public storage
       {
         protocol: "https",
